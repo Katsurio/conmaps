@@ -12,5 +12,6 @@
 */
 
 Route::get('/', 'ContactController@index');
+Route::post('/search', 'ContactController@search');
 
 Route::resource('contacts', 'ContactController');

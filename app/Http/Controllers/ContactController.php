@@ -20,7 +20,8 @@ class ContactController extends Controller
     public function index()
     {
         $contacts = Contact::latest()->paginate(5);
-        return view('contacts.index', compact('contacts'));
+        $items = $request->items ?? 5;
+        return view('contacts.index', compact('contacts', 'items'));
     }
 
     /**
@@ -113,13 +114,13 @@ class ContactController extends Controller
                 return Redirect::back()->withErrors('Duplicate Email. Please select a different email.')->withInput();
             }
         }
-        return redirect('/contacts')->with('success', 'Contact Updated.');
+        return redirect('/contacts')->with('success', 'Contact Updated.')->withInput();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Contact $contact
+     * @param int $id
      * @return Response
      */
     public function destroy($id)
@@ -128,5 +129,19 @@ class ContactController extends Controller
         $contact->delete();
 
         return redirect('/contacts')->with('success', 'Contact Deleted.');
+    }
+
+    /**
+     * Search for contact
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function search(Request $request)
+    {
+        $q = $request->q;
+        $items = $request->items ?? 5;
+        $contacts = Contact::where('first_name', 'LIKE', '%' . $q . '%')->orWhere('email', 'LIKE', '%' . $q . '%')->paginate($items);
+        return view('contacts.index', compact('contacts', 'items'));
     }
 }
