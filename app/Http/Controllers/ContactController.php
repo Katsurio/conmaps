@@ -89,23 +89,44 @@ class ContactController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Contact  $contact
-     * @return Response
+     * @param CreateContactRequest $request
+     * @param Contact $contact
+     * @return RedirectResponse|Response
      */
-    public function update(Request $request, Contact $contact)
+    public function update(CreateContactRequest $request, Contact $contact)
     {
-        //
+        try {
+            $contact->update([
+                'first_name' => $request['first_name'],
+                'last_name' => $request['last_name'],
+                'email' => $request['email'],
+                'phone' => $request['phone'],
+                'birthday' => date('Y-m-d', strtotime($request['birthday'])),
+                'address' => $request['address'],
+                'city' => $request['city'],
+                'state' => $request['state'],
+                'zip' => $request['zip'],
+            ]);
+        } catch (QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return Redirect::back()->withErrors('Duplicate Email. Please select a different email.')->withInput();
+            }
+        }
+        return redirect('/contacts')->with('success', 'Contact Updated.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Contact  $contact
+     * @param Contact $contact
      * @return Response
      */
-    public function destroy(Contact $contact)
+    public function destroy($id)
     {
-        //
+        $contact = Contact::find($id);
+        $contact->delete();
+
+        return redirect('/contacts')->with('success', 'Contact Deleted.');
     }
 }
