@@ -24,11 +24,15 @@ class CreateContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'=>'required',
-            'last_name'=>'required',
-            'email'=>'required|email',
-            'phone' => 'digits:10|nullable',
-            'birthday' => 'date_format:"d/m/Y"|nullable'
+            'first_name' => 'required|alpha|max:45',
+            'last_name' => 'required|alpha|max:45',
+            'email' => 'required|email',
+            'phone' => 'numeric|digits:10|nullable',
+            'birthday' => 'date_format:"Y-m-d"|nullable',
+            'address' => 'required_with:city,state,zip|string',
+            'city' => 'required_with:address|string|nullable',
+            'state' => 'required_with:address|alpha|max:2|nullable',
+            'zip' => 'required_with:address|numeric|digits:5|nullable'
         ];
     }
 }
