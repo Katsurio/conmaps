@@ -43,17 +43,7 @@ class ContactController extends Controller
     public function store(CreateContactRequest $request)
     {
         try {
-            $contact = Contact::create([
-                'first_name' => $request['first_name'],
-                'last_name' => $request['last_name'],
-                'email' => $request['email'],
-                'phone' => $request['phone'],
-                'birthday' => date('Y-m-d', strtotime($request['birthday'])),
-                'address' => $request['address'],
-                'city' => $request['city'],
-                'state' => $request['state'],
-                'zip' => $request['zip'],
-            ]);
+            Contact::storeContact($request->all());
         } catch (QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
@@ -97,17 +87,7 @@ class ContactController extends Controller
     public function update(CreateContactRequest $request, Contact $contact)
     {
         try {
-            $contact->update([
-                'first_name' => $request['first_name'],
-                'last_name' => $request['last_name'],
-                'email' => $request['email'],
-                'phone' => $request['phone'],
-                'birthday' => date('Y-m-d', strtotime($request['birthday'])),
-                'address' => $request['address'],
-                'city' => $request['city'],
-                'state' => $request['state'],
-                'zip' => $request['zip'],
-            ]);
+            $contact->updateContact($request->all());
         } catch (QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
