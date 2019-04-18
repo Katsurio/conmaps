@@ -34,18 +34,18 @@
         </div>
         <div class="col-sm-12">
             <h1 class="display-5">Contacts</h1>
-            <table class="table table-striped table-dark table-bordered table-responsive w-100 d-md-table">
+            <table class="table table-striped table-bordered table-responsive w-100 d-md-table">
                 <thead>
                 <tr>
                     <td>ID</td>
                     <td>Name</td>
                     <td>Email</td>
                     <td>Phone</td>
-                    <td>Birthday</td>
-                    <td>Address</td>
-                    <td>City</td>
-                    <td>State</td>
-                    <td>Zip</td>
+{{--                    <td>Birthday</td>--}}
+{{--                    <td>Address</td>--}}
+{{--                    <td>City</td>--}}
+{{--                    <td>State</td>--}}
+{{--                    <td>Zip</td>--}}
                     <td colspan=3>Actions</td>
                 </tr>
                 </thead>
@@ -56,11 +56,11 @@
                         <td>{{ $contact->first_name }} {{ $contact->last_name }}</td>
                         <td>{{ $contact->email }}</td>
                         <td>{{ $contact->phone }}</td>
-                        <td>{{ date('m-d-Y', strtotime($contact->birthday)) }}</td>
-                        <td>{{ $contact->address }}</td>
-                        <td>{{ $contact->city }}</td>
-                        <td>{{ $contact->state }}</td>
-                        <td>{{ $contact->zip }}</td>
+{{--                        <td>{{ date('m-d-Y', strtotime($contact->birthday)) }}</td>--}}
+{{--                        <td>{{ $contact->address }}</td>--}}
+{{--                        <td>{{ $contact->city }}</td>--}}
+{{--                        <td>{{ $contact->state }}</td>--}}
+{{--                        <td>{{ $contact->zip }}</td>--}}
                         <td>
                             <a href="{{ route('contacts.show',$contact->id) }}" class="btn btn-warning">View</a>
                         </td>
