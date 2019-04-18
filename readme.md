@@ -13,11 +13,11 @@ Please check the official laravel installation guide for server requirements bef
 
 Clone the repository
 
-    git clone https://github.com/Katsurio/havenagency.git
+    git clone https://github.com/Katsurio/conmaps.git
 
 Switch to the repo folder
 
-    cd havenagency
+    cd conmaps
 
 Install all the dependencies using composer
 
