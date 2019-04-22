@@ -25,7 +25,7 @@
                         </tr>
                         <tr>
                             <td>Birthday:</td>
-                            <td>{{ $contact->birthday }}</td>
+                            <td>{{ date('m-d-Y', strtotime($contact->birthday)) }}</td>
                         </tr>
                         <tr>
                             <td>Address:</td>
